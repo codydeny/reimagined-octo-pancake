@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
+body {
+	font-family: 'Roboto', sans-serif;
+	background: grey;
+}
+.ExtensionContainer{
+	background: white;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	max-width: 357px;
+	height: 420px;
+}
+
+.linkText {
+	margin: 0 auto;
+	font-size: 20px;
+	font-weight: bold;
+	color: #878787;
+	margin-bottom: 20px;
+}
+
+.extFooter {
+	margin: 0 auto;
+}
+.linkDiv {
+	margin: 0 auto;
+	color: #FF7E67;
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+.linkIcon {
+	
+}
+.LinkIconsDiv {
+	margin: 0 auto;
+}
+.rowDiv {
+	display: flex;
+	flex-direction: row;
+}
+
+.colDiv {
+	display: flex;
+	flex-direction: column;
+	margin: 18px;
+
+}
+.socialImgs {
+	cursor: pointer;
+	border-radius: 5px;
+}
+.verfiedIcon {
+	text-align: center;
+	margin-top: 9px;
+	color: green;
+	display: none;
+}
+.extFooter{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0;
+	margin-bottom: 8px;
+}

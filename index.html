@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>Profile Ease</title>
+  </head>
+  <body>
+
+
+    <div class="ExtensionContainer">
+    	<div class="linkDiv"> <img src="link.png" height="45"> </div>
+    	<div class="linkText"> LINK YOURSELF </div>
+
+	    <div class="LinkIconsDiv">	
+	    	<div class="rowDiv">
+	    		<div class="colDiv" id='twitterVerify'> <img class='socialImgs' src="twitter.png" height="40">
+	    			<span class="material-icons verfiedIcon" id='twitterVerified'>verified</span>
+	    		 </div>
+	    		<div class="colDiv" id='redditVerify'> <img class='socialImgs'src="reddit.png" height="40">
+	    		<span class="material-icons verfiedIcon"  id='redditVerified'>verified</span>
+	    		 </div>
+	    		<div class="colDiv" id='lineVerify'> <img class='socialImgs' src="line.svg" height="40">
+	    		<span class="material-icons verfiedIcon"  id='lineVerified'>verified</span>
+	    	</div>
+	    	</div>
+	    </div>
+
+
+    	<div class="extFooter"> Built with ❤️ by Profile Ease Team</div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" 
+  integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w=="
+   crossorigin="anonymous"></script>
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    	<script type="text/javascript">
+  		  function resetEverything(e) {
+        localStorage.clear()
+        window.location.reload()
+    }
+
+
+    function makestate(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+    let state = localStorage.getItem('state');
+
+    if(localStorage.getItem('state')=== null) {
+       state = makestate(10); 
+       localStorage.setItem('state',state);
+
+    }
+      let Client_ID = 'gPiZw9dut5OhHQ'
+    let Client_secret = 'Mtfad1S5U79-SPOq3po6X1aP6ZE'
+    let code = localStorage.getItem('code')
+    let redirect_uri = 'https://freereddittesting.000webhostapp.com/'
+    let grant_type = 'authorization_code'
+    let access_token;
+     setInterval(refresh, 1200000)
+
+
+
+	let redditURL = `https://www.reddit.com/api/v1/authorize.compact?client_id=I5i7_z3rTN-JJA&response_type=code&state=${state}&redirect_uri=https://freereddittesting.000webhostapp.com%2F&duration=permanent&scope=identity,mysubreddits,privatemessages,read,report,save,submit,subscribe,vote,wikiedit,wikiread%20account%20creddits%20edit%20read%20submit`;
+
+	document.getElementById("redditVerify").addEventListener("click", openRedditWindow);
+	document.getElementById('redditVerify').addEventListener('click',handleWait)
+	 if(!(localStorage.getItem('code')=== null)) {
+         
+       $( "#redditVerified" ).show();
+       $("#redditVerify").css("pointer-events","none");
+
+
+       }
+        let first = true;
+    
+    
+    async function handleWait(e) {
+
+
+        setTimeout(async ()=>{ 
+    
+         await fetch('https://corsanywhereintwiff.herokuapp.com/https://freereddittesting.000webhostapp.com/api/?state='+localStorage.getItem('state'),{
+            method: 'GET'
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            if(data.success) {
+                waitTime = false;
+    clearInterval(handleWait);
+    localStorage.setItem('code',data.code)
+    $( "#redditVerified" ).show();
+     $("#redditVerify").css("pointer-events","none");
+     
+    generate()
+            }
+         /*   var output = `<p>User Name- ${data.displayName} </p><br>
+                            <p>User Id- ${data.userId}</p><br>`
+            if(data.statusMessage){
+                output +=`<p>Status Message- ${data.statusMessage}</p>`
+            }
+            document.getElementById('output').innerHTML += output
+            let imgurl = data.pictureUrl
+            if(imgurl){
+                let Img = document.createElement('img')
+                Img.setAttribute('src',`${imgurl}`)
+                Img.classList.add('.show')
+                document.querySelector('#output').appendChild(Img)
+           
+            }*/
+            
+            })
+            
+        .catch((err) => console.log("error")) 
+
+
+
+        }, 10000);
+    
+          
+       
+         
+       //fetch friendship status
+    
+    }
+
+        async function generate(){
+            if(first) {
+              console.log("One Time Access Token & Refresh Token Requesting")   
+           
+           let data = {
+               'grant_type' : grant_type,
+               'code' : localStorage.getItem('code'),
+               'redirect_uri' : redirect_uri,
+
+           };
+
+           var config = {
+             'method': 'POST',
+             'url': 'https://www.reddit.com/api/v1/access_token',
+             'headers': {
+                //'user-agent': 'web:ReddtiAPITesting:v1.2.3 (by /u/Electrical-Visit7935)',
+                //'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Authorization' : 'Basic ' + btoa(unescape(encodeURIComponent('I5i7_z3rTN-JJA' + ':' + 'KeCHHs9YIiO1XevaWP5OkZNMx1M')))
+              },
+             'data' : Qs.stringify(data)
+           };
+
+            first = false;
+            //refresh access token    
+            await axios(config)
+            .then((resp) => {
+                console.log(resp.data)
+                if(resp.data.access_token) {
+                      access_token = resp.data.access_token
+                 refresh_token = resp.data.refresh_token
+                 localStorage.setItem('access_token', resp.data.access_token)
+                localStorage.setItem('refresh_token', resp.data.refresh_token)
+                console.log("Refresh Tokens & Access Tokens Recieved. You can Fetch Data Now")
+                
+                }
+
+                 
+            })
+            .catch((err) => console.log(err))
+
+            //fetch user profile data
+            // console.log('User Profile');
+          //  let promise = fetchdata(Client_ID,Client_secret,code,redirect_uri,grant_type,access_token)
+            }
+            else {
+                console.log("causing multiple calls");
+            }
+         
+        }
+
+        async function refresh(e) {
+            //e.preventDefault()
+             let data = {
+               'grant_type' : 'refresh_token',
+               "refresh_token" : localStorage.getItem('refresh_token')
+
+           };
+
+           let config = {
+             'method': 'POST',
+             'url': 'https://www.reddit.com/api/v1/access_token',
+             'headers': {
+                //'user-agent': 'web:ReddtiAPITesting:v1.2.3 (by /u/Electrical-Visit7935)',
+                //'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Authorization' : 'Basic ' + btoa(unescape(encodeURIComponent('I5i7_z3rTN-JJA' + ':' + 'KeCHHs9YIiO1XevaWP5OkZNMx1M')))
+              },
+             'data' : Qs.stringify(data)
+           };
+
+            first = false;
+            //refresh access token    
+           axios(config)
+            .then((resp) => {
+                console.log(resp)
+                if(resp.data.access_token) {
+                      access_token = resp.data.access_token
+                 localStorage.setItem('access_token', resp.data.access_token)
+                alert("Token Refreshed");
+                }
+
+                 
+            })
+            .catch((err) => console.log(err))
+
+        }
+
+	function openRedditWindow() {
+		var windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+     window.open(redditURL,  windowFeatures);
+}
+  	</script>
+  </body>
+</html>
