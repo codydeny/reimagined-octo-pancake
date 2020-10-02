@@ -291,13 +291,13 @@ function resetEverything(e) {
                   
                    if(element.data.thumbnail_height){
                     	console.log(element.data.thumbnail);
-                    output += `<img src=${element.data.thumbnail} width=200 style="margin: 0 auto">`
+                    output += `<img src=${element.data.thumbnail} width=200 style="margin-left: 50px">`
                     }
                      else {
                         output += `<img src="redditBanner.jpg" width=200>`;
                     }
 
-                    output += ` <div class="carousel-caption d-none d-md-block" style = "margin-top: 50px; color: black">
+                    output += ` <div class="carousel-caption d-none d-md-block" style = "width:100%; text-align:center; position: absolute; bottom: 0; margin-bottom: 50px; color: black">
     				${element.data.title}
   </div></div> </div>`;
           
