@@ -16,7 +16,7 @@
   <body>
 
 
-    <div class="ExtensionContainer">
+    <div class="ExtensionContainer" id='frontPage'>
     	<div class="linkDiv"> <img src="link.png" height="45"> </div>
     	<div class="linkText"> LINK YOURSELF </div>
 
@@ -37,6 +37,88 @@
 
     	<div class="extFooter"> Built with ❤️ by Profile Ease Team</div>
     </div>
+
+
+    <div class="ExtensionContainer" id='redditPage'>
+    	<span class="material-icons" id='backBtn'>
+arrow_back
+</span>
+    	<div class="linkDivReddit"> <img src="reddit.png" height="45"> </div>
+
+    	<div class="container" style="margin-top: -10px;">
+  <ul class="nav nav-tabs" id='redditNavsDiv'>
+    <li class="active"><a id='myProfileReddit' class='navReddit btn btn-light' data-toggle="tab" href="#home">My Profile</a></li>
+    <li><a id='topPostsReddit' class='navReddit btn btn-light' data-toggle="tab" href="#menu1">Top Posts</a></li>
+    <li><a id='messagesReddit' class='navReddit btn btn-light' data-toggle="tab" href="#menu2">Messages</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <div id='redditProfilePic' > </div>
+      <div id='redditAbout'> 
+      	<div id='redditName'>
+      	 
+      </div>
+      <div id="redditInfoDiv">
+       <div id='redditKarma'>
+       	
+       </div>
+       <div id='divder'>·</div>
+     <div id='redditGold'> </div>
+ </div>
+   </div>
+      <div id='redditDescription'>
+      	
+      </div>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" id='topPostsRedditDiv'>
+   
+</div>
+
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+     
+    </div>
+    <div id="menu2" class="tab-pane fade">
+    	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" id='messagesRedditDiv'>
+   
+</div>
+
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+     
+      <p></p>
+    </div>
+  </div>
+</div>
+
+
+    	<div class="extFooter"> Built with ❤️ by Profile Ease Team</div>
+    </div>
+
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -64,6 +146,11 @@
    }
    return result;
 }
+        document.getElementById("backBtn").addEventListener("click", ()=> {
+     	$('#redditPage').hide();
+     	$('#frontPage').show();
+     });
+     
     let state = localStorage.getItem('state');
 
     if(localStorage.getItem('state')=== null) {
@@ -83,12 +170,34 @@
 
 	let redditURL = `https://www.reddit.com/api/v1/authorize.compact?client_id=I5i7_z3rTN-JJA&response_type=code&state=${state}&redirect_uri=https://freereddittesting.000webhostapp.com%2F&duration=permanent&scope=identity,mysubreddits,privatemessages,read,report,save,submit,subscribe,vote,wikiedit,wikiread%20account%20creddits%20edit%20read%20submit`;
 
-	document.getElementById("redditVerify").addEventListener("click", openRedditWindow);
-	document.getElementById('redditVerify').addEventListener('click',handleWait)
+	 $("#redditVerify").bind( "click", openRedditWindow);
+	  $("#redditVerify").bind( "click", handleWait);
+	   $("#myProfileReddit").bind( "click", fetchdata);
+	   $("#myProfileReddit").bind( "click", ()=> {
+	   	 	$('#topPostsRedditDiv').hide();
+	   	$('#messagesRedditDiv').hide();
+	   	$('#redditProfilePic').show();
+
+	   });
+	   $("#topPostsReddit").bind( "click", getTopPosts);
+	   $("#topPostsReddit").bind( "click", ()=> {
+	   	$('#topPostsRedditDiv').show();
+	   	$('#messagesRedditDiv').hide();
+	   	$('#redditProfilePic').hide();
+
+	   });
+	   $('#messagesReddit').bind('click', getMessages);
+	   $('#messagesReddit').bind('click', ()=> {
+	   	$('#topPostsRedditDiv').hide();
+	   	$('#messagesRedditDiv').show();
+	   	$('#redditProfilePic').hide();
+
+	   });
 	 if(!(localStorage.getItem('code')=== null)) {
          
        $( "#redditVerified" ).show();
-       $("#redditVerify").css("pointer-events","none");
+      $("#redditVerify").unbind( "click", openRedditWindow);
+     $("#redditVerify").bind( "click", openRedditPage);
 
 
        }
@@ -111,7 +220,12 @@
     clearInterval(handleWait);
     localStorage.setItem('code',data.code)
     $( "#redditVerified" ).show();
-     $("#redditVerify").css("pointer-events","none");
+     $("#redditVerify").unbind( "click", openRedditWindow);
+     $("#redditVerify").bind( "click", openRedditPage);
+ 
+     
+
+
      
     generate()
             }
@@ -231,10 +345,143 @@
 
         }
 
-	function openRedditWindow() {
-		var windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+            async function fetchdata(e){
+             e.preventDefault()
+        
+            await fetch('https://oauth.reddit.com/api/v1/me',{
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('access_token')
+            }
+        })
+        .then((res) => res.json()
+        .then((data) => {
+            console.log("Requested Data : ");
+            console.log(data);
+    // $("#redditProfilePic").attr("src",data.icon_img);
+      document.getElementById("redditProfilePic").innerHTML =  `<img src=${data.icon_img} class="redditImg" width = "100px" height = "100px"></img>`
+       $('#redditName').html(data.name);
+          $('#redditKarma').html(data.total_karma + ' karma ');
+          $('#redditGold').html(" "+data.gold_creddits + " <img src='rGold.png' class='redditGoldImg' width = '16px' height = '16px'>"); 
+            $('#redditDescription').html(data.subreddit.public_description);
+             
+            }))
+            
+        .catch((err) => console.log(err))
+       //fetch friendship status 
+       
+        }
+
+                async function getTopPosts(e){
+            e.preventDefault()
+            await fetch('https://oauth.reddit.com/best',{
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('access_token')
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log("Hot posts: ", data.data.children);
+            let meme = data.data.children;
+                let output;
+                let first = true;
+                meme.forEach(function(element){
+                	if(first) {
+                		output += `<div class="carousel-item active">`; 
+                		first = false;
+                	}
+                	else {
+                     output += `<div class="carousel-item">`; 
+                	}
+                	
+                	output += `<div class="innerPost text-dark">`;
+             var urlType = element.data.url.split(".").splice(-1);
+              console.log(urlType);
+                  
+                   if(element.data.thumbnail_height){
+                    	console.log(element.data.thumbnail);
+                    output += `<img src=${element.data.thumbnail} width=350 height=300>`
+                    }
+                     else {
+                        output += `<img src="redditBanner.jpg" width=350 height=300>`;
+                    }
+
+                    output += ` <div class="carousel-caption d-none d-md-block">
+    <p>${element.data.title}</p>
+  </div></div> </div>`;
+          
+
+                });
+      document.getElementById('topPostsRedditDiv').innerHTML = output;
+
+            })
+        .catch((err) => console.log(err))
+        }
+
+
+
+        async function getMessages(e){
+            e.preventDefault()
+            await fetch('https://oauth.reddit.com/message/inbox',{
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('access_token')
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log("Messages: ", data.data.children);
+            let meme = data.data.children;
+                let output;
+                let first = true;
+                meme.forEach(function(element){
+                	if(first) {
+                		output += `<div class="carousel-item active">`; 
+                		first = false;
+                	}
+                	else {
+                     output += `<div class="carousel-item">`; 
+                	}
+                	
+                	output += `<div class="innerPost text-dark">`;
+                  
+                        output += `<img src="white.jpg" width=350 height=300>`;
+                   
+
+                    output += ` <div class="carousel-caption" id='meesagesDiv'>
+    <div>
+                            <h4>${element.data.subject}</h4>
+                            <p><b>Sender: ${element.data.author}</b></p>
+                            <p>${element.data.body}</p>
+                        </div>
+  </div></div> </div>`;
+          
+
+                });
+      document.getElementById('messagesRedditDiv').innerHTML = output;
+
+            })
+        .catch((err) => console.log(err))
+        }
+
+
+
+	function openRedditWindow(bool) {
+		
+			var windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
      window.open(redditURL,  windowFeatures);
+		
+		
 }
+
+ function openRedditPage() {
+            $('#frontPage').hide();
+         $('#redditPage').show();
+ }
   	</script>
   </body>
 </html>
