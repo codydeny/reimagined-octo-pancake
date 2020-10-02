@@ -183,4 +183,13 @@ a:visited {
 #topPostsRedditDiv {
 	margin-top: 0px;
 }
+#reset {
+	z-index: 99999999999;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 10px;
+	color: red;
+	cursor: pointer;
+}
 

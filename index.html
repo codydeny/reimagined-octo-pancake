@@ -18,6 +18,9 @@
 
     <div class="ExtensionContainer" id='frontPage'>
     	<div class="linkDiv"> <img src="link.png" height="45"> </div>
+    	<span class="material-icons" id='reset'>
+delete
+</span>
     	<div class="linkText"> LINK YOURSELF </div>
 
 	    <div class="LinkIconsDiv">	
@@ -150,7 +153,8 @@ arrow_back
      	$('#redditPage').hide();
      	$('#frontPage').show();
      });
-     
+         document.getElementById("reset").addEventListener("click",resetEverything);
+
     let state = localStorage.getItem('state');
 
     if(localStorage.getItem('state')=== null) {
