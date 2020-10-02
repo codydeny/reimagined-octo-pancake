@@ -297,7 +297,7 @@ function resetEverything(e) {
                         output += `<img src="redditBanner.jpg" width=200>`;
                     }
 
-                    output += ` <div class="carousel-caption d-none d-md-block" style = "width:100%; text-align:center; position: absolute; bottom: 0; margin-bottom: 50px; color: black">
+                    output += ` <div class="carousel-caption d-none d-md-block" style = "width:100%; text-align:center; position: absolute; bottom: 0; margin-top: 300px; color: black">
     				${element.data.title}
   </div></div> </div>`;
           
