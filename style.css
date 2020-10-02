@@ -161,8 +161,8 @@ a:visited {
 }
 
 .innerPost {
-	width: 100%;
-	height: 280px;
+	width: 200px;
+	height: auto;
 	color: black;
 	
 }
