@@ -15,9 +15,29 @@ function resetEverything(e) {
 }
         document.getElementById("backBtn").addEventListener("click", ()=> {
      	$('#redditPage').hide();
+        $('#twitterPage').hide();
      	$('#frontPage').show();
      });
          document.getElementById("reset").addEventListener("click",resetEverything);
+         document.getElementById("tweetBtn").addEventListener("click",sendUsername);
+         document.getElementById("twitterVerify").addEventListener("click",()=> {
+            $('#twitterInput').show();
+         });
+
+         function sendUsername() {
+             
+              let username = $('#twitterUsername').val();
+               alert('hello.' +username +' line 30 main.js')
+
+               $('#twitterInput').hide() // this will hide input button and text box
+
+               $('#twitterVerified').show() //show green tick
+
+               $('#twitterPage').show();
+               $('#frontPage').hide();
+
+              
+         }
 
     let state = localStorage.getItem('state');
 

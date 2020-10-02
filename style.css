@@ -193,3 +193,11 @@ a:visited {
 	cursor: pointer;
 }
 
+#twitterInput {
+	margin: 0 auto;
+	display: none;
+}
+
+#twitterPage {
+	display: none;
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Profile-Ease",
+  "version": "1.0",
+  "description": "A chrome extension which seeks to reduce the time users spend browsing social media websites.",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab"]
+}
