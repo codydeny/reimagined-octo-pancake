@@ -180,21 +180,21 @@ arrow_back
 	   $("#myProfileReddit").bind( "click", ()=> {
 	   	 	$('#topPostsRedditDiv').hide();
 	   	$('#messagesRedditDiv').hide();
-	   	$('#redditProfilePic').show();
+	   	$('#home').show();
 
 	   });
 	   $("#topPostsReddit").bind( "click", getTopPosts);
 	   $("#topPostsReddit").bind( "click", ()=> {
 	   	$('#topPostsRedditDiv').show();
 	   	$('#messagesRedditDiv').hide();
-	   	$('#redditProfilePic').hide();
+	   	$('#home').hide();
 
 	   });
 	   $('#messagesReddit').bind('click', getMessages);
 	   $('#messagesReddit').bind('click', ()=> {
 	   	$('#topPostsRedditDiv').hide();
 	   	$('#messagesRedditDiv').show();
-	   	$('#redditProfilePic').hide();
+	   	$('#home').hide();
 
 	   });
 	 if(!(localStorage.getItem('code')=== null)) {
